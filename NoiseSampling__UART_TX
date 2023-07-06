@@ -1,7 +1,7 @@
 
 
 */Sampling noise audio signal with ADC12 module and MSP430f233/*
-*/Not ideal for audio processing but can be useful for Acoustics implementations /*
+*/Audio processing, Acoustics and other sensoric and IoT implementations involved/*
 */Designed by Juan Manuel Medina, ingenieria@prismatiklab.com /*
 
 #define ADC_RESULT_SIZE 8 // Number of samples to store (should match the number of output pins used)
