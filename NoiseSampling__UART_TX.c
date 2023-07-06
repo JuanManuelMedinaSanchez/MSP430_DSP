@@ -1,5 +1,3 @@
-
-
 */Sampling noise audio signal with ADC12 module and MSP430f233/*
 */Audio processing, Acoustics and other sensoric and IoT implementations involved/*
 */Designed by Juan Manuel Medina, ingenieria@prismatiklab.com /*
