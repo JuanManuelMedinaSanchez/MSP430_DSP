@@ -2,22 +2,22 @@
 */Audio processing, Acoustics and other sensoric and IoT implementations involved/*
 */Designed by Juan Manuel Medina, ingenieria@prismatiklab.com /*
 
-#define ADC_RESULT_SIZE 8 // Number of samples to store (should match the number of output pins used)
+#define ADC_RESULT_SIZE 8
 
 void UART_init(void)
 {
     // Configure UART pins (P3.4 = TXD)
-    P3SEL |= BIT4;              // Set P3.4 to UART mode
-    P3DIR |= BIT4;              // Set P3.4 as output
+    P3SEL |= BIT4;              // P3.4 UART mode
+    P3DIR |= BIT4;              // P3.4 output
 
     // Configure UART settings (9600 baud, 8 data bits, no parity, 1 stop bit)
     UCA0CTL0 = 0;
-    UCA0CTL1 |= UCSSEL_2;       // Use SMCLK as clock source
-    UCA0BR0 = 104;              // Set baud rate to 9600 (SMCLK = 1MHz)
+    UCA0CTL1 |= UCSSEL_2;       // SMCLK -> clock source
+    UCA0BR0 = 104;              // baud rate 9600 (SMCLK = 1MHz)
     UCA0BR1 = 0;
     UCA0MCTL = UCBRS0;          // Modulation UCBRSx = 1
 
-    UCA0CTL1 &= ~UCSWRST;       // Enable UART module
+    UCA0CTL1 &= ~UCSWRST;       // Enable UART
 }
 
 void UART_sendByte(unsigned char data)
@@ -35,18 +35,18 @@ void main(void)
     ADC12MCTL0 = SREF_0;               // Vr+ = VREF+ (internal)
     ADC12CTL0 |= ENC;                  // Enable conversions
 
-    unsigned int adcResults[ADC_RESULT_SIZE]; // Array to store ADC results
-    unsigned int i = 0;                        // Index variable
+    unsigned int adcResults[ADC_RESULT_SIZE]; // ADC results
+    unsigned int i = 0;                        
 
     // Initialize UART
     UART_init();
 
     while (1)
     {
-        ADC12CTL0 |= ADC12SC;               // Start conversion
+        ADC12CTL0 |= ADC12SC;               // Start 
         while ((ADC12IFG & ADC12BUSY) == 0)
             ;
-        adcResults[i] = ADC12MEM0;          // Store ADC result in the array
+        adcResults[i] = ADC12MEM0;          
         i = (i + 1) % ADC_RESULT_SIZE;      // Increment index with wrap-around
 
         // Send the ADC result over UART
